@@ -57,17 +57,16 @@
   </style>
 
   <script>
-    const values = document.querySelectorAll(".controls input")
+    const values = document.querySelectorAll(".controls input");
 
     function handleUpdate() {
-      console.log(this.name)
+      console.log(this.name);
       const suffix = this.dataset.sizing || "";
-      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     }
 
-    values.forEach(value => value.addEventListener("change", handleUpdate))
-    values.forEach(value => value.addEventListener("mousemove", handleUpdate))
-
+    values.forEach(value => value.addEventListener("change", handleUpdate));
+    values.forEach(value => value.addEventListener("mousemove", handleUpdate));
 
   </script>
 
