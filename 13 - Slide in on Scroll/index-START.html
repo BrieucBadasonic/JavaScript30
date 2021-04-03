@@ -58,6 +58,38 @@
       };
     }
 
+    const images = document.querySelectorAll('.slide-in')
+
+    function checkSlide(e) {
+      images.forEach(image => {
+        // window.scrollY --> number of pixel scroll at the top of the window
+        // window.innerHeight --> size of the user window
+        // image.height --> height of the selected image
+        // slideInAt --> number of pixel between the top of the widow and the middle of the image
+        //   --> when we want to slide in the image
+        const slideInAt = (window.scrollY + window.innerHeight) - image.height / 2
+
+        // image.offsetTop --> number of pixel between the top of the window and the top of the image
+        // imageBottom --> number of pixel between the top of the window and the top of the image
+        const imageBottom = image.offsetTop + image.height
+
+        // we check is the image is at least half shown
+        const isHalfShown = slideInAt > image.offsetTop
+
+        // we check if the image is not completely off screen
+        const isNotScrolledPast = window.scrollY < imageBottom
+
+        // we check if the image is at least of shown AND still visible
+        if (isHalfShown && isNotScrolledPast) {
+          image.classList.add('active')
+        } else {
+          image.classList.remove('active')
+        }
+      })
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide))
+
   </script>
 
   <style>
@@ -68,11 +100,11 @@
       font-size: 20px;
       font-weight: 200;
     }
-    
+
     body {
       margin: 0;
     }
-    
+
     *, *:before, *:after {
       box-sizing: inherit;
     }
@@ -107,7 +139,7 @@
     .align-left.slide-in {
       transform: translateX(-30%) scale(0.95);
     }
-    
+
     .align-right.slide-in {
       transform: translateX(30%) scale(0.95);
     }
